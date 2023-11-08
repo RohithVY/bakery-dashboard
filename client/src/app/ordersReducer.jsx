@@ -1,11 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { CHARTS, TABLE } from "../constants/constants";
+import { TABLE } from "../constants/constants";
 
 export const ordersSlice = createSlice({
   name: "orders",
   initialState: {
     dateRange: { startDate: null, endDate: null },
-    activeTab: CHARTS,
+    activeTab: TABLE,
     tableData: {},
     errorMsg: "",
     queryStatus: ""
