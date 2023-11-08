@@ -1,8 +1,13 @@
 import axios from "axios";
 
 export async function getAllOrders() {
-    
-  const res = await axios.get(`http://localhost:5000/api/order/?`);
-  return res.data;
+  try {
+    const res = await axios.get(
+      `http://demo4518863.mockable.io/`
+    );
+    if (typeof res.data === "string") return JSON.parse(res.data);
+    return res.data;
+  } catch (error) {
+    console.error(error);
+  }
 }
-

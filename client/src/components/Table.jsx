@@ -3,13 +3,18 @@ import { useQuery } from "@tanstack/react-query";
 import { getAllOrders } from "../api/orders";
 import { ErrorPage } from "../utilities/ErrorPage";
 import { LoadingPage } from "../utilities/LoadingPage";
-import { formatDate } from "../utilities/formatDate";
+import {
+  filterData,
+  formatDate,
+  handleSortedData,
+} from "../utilities/helperFunctions";
 import { useDispatch, useSelector } from "react-redux";
 import { newTableData, selectDateRange } from "../app/ordersReducer";
 import Pagination from "../utilities/Pagination";
+import { ASC, DSC } from "../constants/constants";
 
 const tableHeaderCName =
-  "text-center font-bold text-[0.8rem] uppercase subpixel-antialiased text-slate-300";
+  "text-center font-bold text-[0.8rem] uppercase subpixel-antialiased text-slate-300 cursor-pointer";
 
 const Table = () => {
   const dispatch = useDispatch();
@@ -21,6 +26,15 @@ const Table = () => {
   const { data, status, error } = useQuery({
     queryKey: ["orders"],
     queryFn: getAllOrders,
+  });
+
+  const [filteredData, setFilteredData] = useState([]);
+  const [dataDirections, setDataDirection] = useState({
+    item_type: ASC,
+    order_state: ASC,
+    last_update_time: DSC,
+    branch: ASC,
+    customer: ASC,
   });
 
   const startDate = new Date(dateRange.startDate);
@@ -36,17 +50,28 @@ const Table = () => {
 
   useEffect(() => {
     if (data && data.orders) {
+      setFilteredData(data.orders);
+    }
+  }, [data]);
+
+  useEffect(() => {
+    if (filteredData) {
       setPaginatedData(
-        data.orders.slice(pageFirstIndex, pageFirstIndex + tableRowsPerPage)
+        filteredData.slice(pageFirstIndex, pageFirstIndex + tableRowsPerPage)
       );
     }
-  }, [data, currentPage]);
+  }, [filteredData, currentPage]);
+
+  useEffect(() => {
+    data?.orders &&
+      filterData(data?.orders, setFilteredData, "last_update_time", dateRange);
+  }, [dateRange]);
 
   if (status === "pending") {
     return <LoadingPage />;
   }
 
-  if (status === "error") {
+  if (status === "error" || !data?.orders?.length) {
     return (
       <ErrorPage msg={"There seems to be some Error! Please try again..."} />
     );
@@ -58,19 +83,75 @@ const Table = () => {
 
   if (data && data.orders) dispatch(newTableData(data));
 
+  const handleDirectionChange = (key) => {
+    setDataDirection((prevState) => {
+      const newDirection = prevState[key] === ASC ? DSC : ASC;
+      return {
+        ...prevState,
+        [key]: newDirection,
+      };
+    });
+    setTimeout(
+      () =>
+        handleSortedData(
+          filteredData,
+          setFilteredData,
+          dataDirections[key],
+          key
+        ),
+      0
+    );
+  };
+
   return (
     <>
       <div className="overflow-x-auto mt-5 mx-5 relative">
         <table className="table bg-[#1E293B]">
-          <caption class="caption-top text-[#3e4e68] mb-2">{info}</caption>
+          <caption className="caption-top text-[#3e4e68] mb-2">{info}</caption>
           <thead>
             <tr className="border-b-2 border-[#0F1729]">
               <th></th>
-              <th className={tableHeaderCName}>Customer Name</th>
-              <th className={tableHeaderCName}>Item Name</th>
-              <th className={tableHeaderCName}> Branch</th>
-              <th className={tableHeaderCName}>Order Status</th>
-              <th className={tableHeaderCName}>Ordered Date</th>
+              <th
+                className={tableHeaderCName}
+                onClick={() => {
+                  handleDirectionChange("customer");
+                }}
+              >
+                Customer Name ↕
+              </th>
+              <th
+                className={tableHeaderCName}
+                onClick={() => {
+                  handleDirectionChange("item_type");
+                }}
+              >
+                Item Name ↕
+              </th>
+              <th
+                className={tableHeaderCName}
+                onClick={() => {
+                  handleDirectionChange("branch");
+                }}
+              >
+                {" "}
+                Branch ↕
+              </th>
+              <th
+                className={tableHeaderCName}
+                onClick={() => {
+                  handleDirectionChange("order_state");
+                }}
+              >
+                Order Status ↕
+              </th>
+              <th
+                className={tableHeaderCName}
+                onClick={() => {
+                  handleDirectionChange("last_update_time");
+                }}
+              >
+                Ordered Date ↕
+              </th>
             </tr>
           </thead>
           <tbody>
@@ -96,13 +177,12 @@ const Table = () => {
               })}
           </tbody>
         </table>
-        {/* currentPage, totalPages, onPageChange */}
       </div>
       <Pagination
         currentPage={currentPage}
-        totalPages={parseInt(data.total / tableRowsPerPage) + 1}
+        totalPages={Math.ceil(filteredData.length / tableRowsPerPage)}
         onPageChange={handlePageChange}
-        total={data.total}
+        total={filteredData.length ? filteredData.length : data.total}
       />
     </>
   );

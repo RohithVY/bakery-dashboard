@@ -1,18 +1,22 @@
 import { useState } from "react";
 import Datepicker from "react-tailwindcss-datepicker";
 import { useSelector, useDispatch } from "react-redux";
-import { selectDateRange, updateDateRange } from "./app/ordersReducer";
+import {
+  selectActiveTab,
+  selectDateRange,
+  updateDateRange,
+} from "./app/ordersReducer";
 import Tabs from "./components/Tabs";
 import Table from "./components/Table";
-import { Filter } from "lucide-react";
+import Charts from "./components/Charts";
+import { CHARTS, TABLE } from "./constants/constants";
 
 function App() {
   const dispatch = useDispatch();
   const dates = useSelector(selectDateRange);
+  const activeTab = useSelector(selectActiveTab);
   const handleValueChange = (dateValues) => {
-    dateValues.startDate &&
-      dateValues.endDate &&
-      dispatch(updateDateRange(dateValues));
+    dispatch(updateDateRange(dateValues));
   };
 
   return (
@@ -40,7 +44,8 @@ function App() {
           <Filter />
         </button> */}
       {/* <div> */}
-        <Table />
+      {activeTab === TABLE && <Table />}
+      {activeTab === CHARTS && <Charts />}
       {/* </div> */}
     </div>
   );
