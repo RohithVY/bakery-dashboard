@@ -282,24 +282,3 @@ export const barChartOptions = (yaxisKeys, message, orderBy, yAxisTitle) => {
     },
   };
 };
-
-export const pieChartOptions = {
-  chart: {
-    width: 380,
-    type: "pie",
-  },
-  labels: ["Team A", "Team B", "Team C", "Team D", "Team E"],
-  responsive: [
-    {
-      breakpoint: 480,
-      options: {
-        chart: {
-          width: 200,
-        },
-        legend: {
-          position: "bottom",
-        },
-      },
-    },
-  ],
-};

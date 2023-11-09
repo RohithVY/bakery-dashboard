@@ -22,10 +22,10 @@ const Charts = () => {
   const topContributorsData = getTopBranches(allData, 5);
 
   return (
-    <div>
-      <div className="flex flex-col md:flex-row mx-5 gap-5">
-        <ChartsHeader top={topContributorsData[1]}/>
-        {/* <TopContributors data={topContributorsData} /> */}
+    <div className="-z-1 relative">
+      <div className="flex flex-col lg:flex-row mx-5 gap-5">
+        <ChartsHeader top={topContributorsData[1]} />
+        <TopContributors data={topContributorsData} />
       </div>
       <div className="flex flex-col md:flex-row mx-5 gap-5">
         <TimeSeries chartFor={ORDERS} />
