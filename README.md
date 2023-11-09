@@ -20,7 +20,18 @@ This is a React-based dashboard application for a bakery. It displays various ch
 The dashboard can be accessed by navigating to `http://localhost:5173/` in your web browser.
 - <b><i>Note: This application is a standalone client-side application. However, if you wish to integrate it with server-side code, please follow the server-side code setup instructions first. Once the server-side setup is complete, you can uncomment the server-side API URL in the `src/api/orders.jsx` file on the client side.</i></b>
 
+## Screenshots
 
+![image](https://github.com/RohithVY/bakery-dashboard/assets/110025038/1642082e-3a8c-4f70-941c-59033c2ae8ac)
+
+![image](https://github.com/RohithVY/bakery-dashboard/assets/110025038/d0290a22-fe3a-4574-a46e-3a3ef093aa09)
+
+### Note worthy feature
+- Responsive Design
+- Zoomable Chart view
+- Range adjustable data (For daily data)
+- and many more...
+  
 ## Components
 
 ### `Charts`
