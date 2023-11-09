@@ -17,7 +17,7 @@ This is a React-based dashboard application for a bakery. It displays various ch
 
 ## Usage
 
-The dashboard can be accessed by navigating to `[localhost:5173](http://localhost:5173/)` in your web browser.
+The dashboard can be accessed by navigating to `http://localhost:5173/` in your web browser.
 - <b><i>Note: This application is a standalone client-side application. However, if you wish to integrate it with server-side code, please follow the server-side code setup instructions first. Once the server-side setup is complete, you can uncomment the server-side API URL in the `src/api/orders.jsx` file on the client side.<i><b>
 
 
