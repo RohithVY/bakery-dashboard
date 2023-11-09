@@ -77,7 +77,6 @@ const TimeSeries = ({ chartFor }) => {
     chartFor === ORDERS ? `Count of Orders` : `Revenue in Rupees`;
 
   useEffect(() => {
-    console.log(orderBy);
     handleFetchingValues(orderBy);
   }, [orderBy, range]);
 

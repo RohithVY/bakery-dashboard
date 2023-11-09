@@ -139,7 +139,7 @@ const TopContributors = ({ data }) => {
   };
   return (
     <div className="card lg:w-[50%] w-full shadow-xl mt-5 bg-[#1E293B] -z-1">
-      <div className="px-5 pt-4 mb-2 h-[15rem]">
+      <div className="px-5 pt-3 pb-2 h-[15rem]">
         <ColumnChart chartData={series} chartOptions={options} />
       </div>
     </div>

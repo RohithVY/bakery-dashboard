@@ -145,7 +145,7 @@ const BarChart = ({
             )}
           </ul>
         </div>
-        <input
+        {orderBy && <input
           type="range"
           min={0}
           max={Object.keys(orderStats["daily"]).length}
@@ -155,7 +155,7 @@ const BarChart = ({
           className={`range mx-4 range-sm ${
             orderBy === "daily" ? "range-secondary" : ""
           }`}
-        />
+        />}
       </div>
       <div className="px-5 mb-2 h-[15rem]">
         <ColumnChart

@@ -41,13 +41,8 @@ function App() {
           />
         </span>
       </div>
-      {/* <button className="btn btn-primary btn-outline">
-          <Filter />
-        </button> */}
-      {/* <div> */}
       {activeTab === TABLE && <Table />}
       {activeTab === CHARTS && <Charts />}
-      {/* </div> */}
     </div>
   );
 }
