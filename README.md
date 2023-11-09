@@ -7,7 +7,7 @@ This is a React-based dashboard application for a bakery. It displays various ch
 - Display charts and statistics for orders, prices, and items
 - Filter charts based on date range
 - Display top contributors
-- Interactive charts that allow users to select different items and order states
+- Interactive charts that allow users to zoom in/out, select different items and order states
 
 ## Installation
 
@@ -26,11 +26,6 @@ The dashboard can be accessed by navigating to `http://localhost:5173/` in your 
 
 ![image](https://github.com/RohithVY/bakery-dashboard/assets/110025038/d0290a22-fe3a-4574-a46e-3a3ef093aa09)
 
-### Note worthy feature
-- Responsive Design
-- Zoomable Chart view
-- Range adjustable data (For daily data)
-- and many more...
   
 ## Components
 
