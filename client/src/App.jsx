@@ -28,19 +28,18 @@ function App() {
           </h2>
           <Tabs />
         </div>
-        {activeTab === TABLE && (
-          <span className="md:w-[30rem] w-full mt-4 lex justify-between gap-4 items-center md:ml-4">
-            <Datepicker
-              primaryColor={"blue"}
-              value={dates}
-              onChange={handleValueChange}
-              showShortcuts={true}
-              displayFormat={"DD/MM/YYYY"}
-              classNames="date__picker"
-              placeholder="Pick Start Date and End Date"
-            />
-          </span>
-        )}
+
+        <span className="md:w-[30rem] w-full mt-4 lex justify-between gap-4 items-center md:ml-4">
+          <Datepicker
+            primaryColor={"blue"}
+            value={dates}
+            onChange={handleValueChange}
+            showShortcuts={true}
+            displayFormat={"DD/MM/YYYY"}
+            classNames="date__picker"
+            placeholder="Pick Start Date and End Date"
+          />
+        </span>
       </div>
       {/* <button className="btn btn-primary btn-outline">
           <Filter />

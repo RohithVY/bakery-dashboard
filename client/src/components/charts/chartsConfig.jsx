@@ -1,4 +1,17 @@
-export const lineChartOptionsTotalSpent = {
+export const lineChartOptionsTotalSpent = (
+  yaxisKeys,
+  message,
+  orderBy,
+  yAxisTitle
+) => {
+  const xAxisMessage = {
+    months: `Monthly Data`,
+    weekdays: `Weekly Data`,
+    daily: `DayWise Data`,
+    hourly: `Hourly Data`,
+  };
+
+  return {
     chart: {
       toolbar: {
         show: false,
@@ -29,6 +42,17 @@ export const lineChartOptionsTotalSpent = {
       },
     },
     colors: ["#4318FF", "#39B8FF"],
+    title: {
+      text: message,
+      align: "left",
+      style: {
+        fontSize: "16px",
+        color: "#ffffff",
+        fontFamily: "Inter",
+        fontWeight: 500,
+      },
+    },
+
     markers: {
       size: 0,
       colors: "white",
@@ -56,12 +80,20 @@ export const lineChartOptionsTotalSpent = {
     },
     xaxis: {
       type: "numeric",
-      categories: ["SEP", "OCT", "NOV", "DEC", "JAN", "FEB"],
+      categories: yaxisKeys,
       labels: {
         style: {
           colors: "#A3AED0",
           fontSize: "12px",
           fontWeight: "500",
+        },
+      },
+      title: {
+        text: xAxisMessage[orderBy],
+        style: {
+          fontSize: "12px",
+          fontWeight: "200",
+          color: "#616873",
         },
       },
       axisBorder: {
@@ -72,7 +104,22 @@ export const lineChartOptionsTotalSpent = {
       },
     },
     yaxis: {
-      show: false,
+      show: true,
+      labels: {
+        style: {
+          colors: "#A3AED0",
+          fontSize: "12px",
+          fontWeight: "500",
+        },
+      },
+      title: {
+        text: yAxisTitle,
+        style: {
+          fontSize: "12px",
+          fontWeight: "200",
+          color: "#616873",
+        },
+      },
     },
     legend: {
       show: true,
@@ -80,8 +127,8 @@ export const lineChartOptionsTotalSpent = {
       fontSize: "8px",
       offsetY: 4,
       labels: {
-          colors: "#A3AED0",
-      }
+        colors: "#A3AED0",
+      },
     },
     grid: {
       show: false,
@@ -89,6 +136,170 @@ export const lineChartOptionsTotalSpent = {
         color: ["#7551FF", "#39B8FF"],
         opacity: 0.5,
       },
+      yaxis: {
+        lines: {
+          show: false,
+        },
+      },
     },
     color: ["#7551FF", "#39B8FF"],
   };
+};
+
+export const barChartOptions = (yaxisKeys, message, orderBy, yAxisTitle) => {
+  const xAxisMessage = {
+    months: `Monthly Data`,
+    weekdays: `Weekly Data`,
+    daily: `DayWise Data`,
+    hourly: `Hourly Data`,
+  };
+  return {
+    chart: {
+      toolbar: {
+        show: false,
+      },
+      dropShadow: {
+        enabled: true,
+        top: 13,
+        left: 0,
+        blur: 10,
+        opacity: 0.1,
+        color: "#4318FF",
+      },
+    },
+    title: {
+      text: message,
+      align: "left",
+      style: {
+        fontSize: "16px",
+        color: "#ffffff",
+        fontFamily: "Inter",
+        fontWeight: 500,
+      },
+    },
+    tooltip: {
+      style: {
+        fontSize: "12px",
+        fontFamily: "Inter",
+      },
+      onDatasetHover: {
+        style: {
+          fontSize: "12px",
+          fontFamily: "Inter",
+        },
+      },
+      theme: "dark",
+    },
+    xaxis: {
+      categories: yaxisKeys,
+      show: true,
+      labels: {
+        show: true,
+        style: {
+          colors: "#A3AED0",
+          fontSize: "12px",
+          fontWeight: "500",
+        },
+      },
+      title: {
+        text: xAxisMessage[orderBy],
+        style: {
+          fontSize: "12px",
+          fontWeight: "200",
+          color: "#616873",
+        },
+      },
+      axisBorder: {
+        show: false,
+      },
+      axisTicks: {
+        show: false,
+      },
+    },
+    yaxis: {
+      show: true,
+      labels: {
+        show: true,
+        style: {
+          colors: "#CBD5E0",
+          fontSize: "14px",
+        },
+      },
+      title: {
+        text: yAxisTitle,
+        style: {
+          fontSize: "12px",
+          fontWeight: "200",
+          color: "#616873",
+        },
+      },
+    },
+    grid: {
+      show: false,
+      strokeDashArray: 0,
+      yaxis: {
+        lines: {
+          show: false,
+        },
+      },
+      xaxis: {
+        lines: {
+          show: false,
+        },
+      },
+    },
+    fill: {
+      type: "gradient",
+      gradient: {
+        type: "vertical",
+        shadeIntensity: 1,
+        opacityFrom: 0.7,
+        opacityTo: 0.9,
+        colorStops: [
+          [
+            {
+              offset: 0,
+              color: "#4318FF",
+              opacity: 1,
+            },
+            {
+              offset: 100,
+              color: "rgba(67, 24, 255, 1)",
+              opacity: 0.28,
+            },
+          ],
+        ],
+      },
+    },
+    dataLabels: {
+      enabled: false,
+    },
+    plotOptions: {
+      bar: {
+        borderRadius: 10,
+        columnWidth: "40px",
+      },
+    },
+  };
+};
+
+export const pieChartOptions = {
+  chart: {
+    width: 380,
+    type: "pie",
+  },
+  labels: ["Team A", "Team B", "Team C", "Team D", "Team E"],
+  responsive: [
+    {
+      breakpoint: 480,
+      options: {
+        chart: {
+          width: 200,
+        },
+        legend: {
+          position: "bottom",
+        },
+      },
+    },
+  ],
+};

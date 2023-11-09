@@ -1,85 +1,98 @@
-export const getOrderStats = (orders) => {
-  const monthNames = [
-    "Jan",
-    "Feb",
-    "Mar",
-    "Apr",
-    "May",
-    "Jun",
-    "Jul",
-    "Aug",
-    "Sep",
-    "Oct",
-    "Nov",
-    "Dec",
-  ];
-  const weekdayNames = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
-  const itemPrices = { Cake: 500, Cookies: 50, Muffins: 100 };
+export const monthNames = [
+  "Jan",
+  "Feb",
+  "Mar",
+  "Apr",
+  "May",
+  "Jun",
+  "Jul",
+  "Aug",
+  "Sep",
+  "Oct",
+  "Nov",
+  "Dec",
+];
+export const weekdayNames = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+export const itemPrices = { Cake: 500, Cookies: 50, Muffins: 100 };
 
+export const getOrderStats = (orders) => {
   let monthOrders = {};
   let weekdayOrders = {};
   let dailyOrders = {};
   let hourlyOrders = {};
+  let yearlyOrders = {};
   let monthTotalPrices = {};
   let weekdayTotalPrices = {};
   let dailyTotalPrices = {};
   let hourlyTotalPrices = {};
+  let yearlyTotalPrices = {};
 
-  orders.forEach((order) => {
-    if (!order.last_update_time || !itemPrices[order.item_type]) {
-      return;
-    }
+  orders &&
+    orders.forEach((order) => {
+      if (!order.last_update_time || !itemPrices[order.item_type]) {
+        return;
+      }
 
-    let date = new Date(order.last_update_time);
-    if (isNaN(date.getTime())) {
-      return;
-    }
+      let date = new Date(order.last_update_time);
+      if (isNaN(date.getTime())) {
+        return;
+      }
 
-    let month = monthNames[date.getMonth()];
-    let weekday = weekdayNames[date.getDay()];
-    let day = date.toLocaleDateString();
-    let hour = date.getHours();
-    let price = itemPrices[order.item_type];
-    let totalPrice = price;
+      let month = monthNames[date.getMonth()];
+      let weekday = weekdayNames[date.getDay()];
+      let day = date.toLocaleDateString();
+      let hour = date.getHours();
+      let price = itemPrices[order.item_type];
+      let totalPrice = price;
+      let year = date.getFullYear();
 
-    if (!monthOrders[month]) {
-      monthOrders[month] = 0;
-      monthTotalPrices[month] = 0;
-    }
-    monthOrders[month]++;
-    monthTotalPrices[month] += totalPrice;
+      if (!monthOrders[month]) {
+        monthOrders[month] = 0;
+        monthTotalPrices[month] = 0;
+      }
+      monthOrders[month]++;
+      monthTotalPrices[month] += totalPrice;
 
-    if (!weekdayOrders[weekday]) {
-      weekdayOrders[weekday] = 0;
-      weekdayTotalPrices[weekday] = 0;
-    }
-    weekdayOrders[weekday]++;
-    weekdayTotalPrices[weekday] += totalPrice;
+      if (!weekdayOrders[weekday]) {
+        weekdayOrders[weekday] = 0;
+        weekdayTotalPrices[weekday] = 0;
+      }
+      weekdayOrders[weekday]++;
+      weekdayTotalPrices[weekday] += totalPrice;
 
-    if (!dailyOrders[day]) {
-      dailyOrders[day] = 0;
-      dailyTotalPrices[day] = 0;
-    }
-    dailyOrders[day]++;
-    dailyTotalPrices[day] += totalPrice;
+      if (!dailyOrders[day]) {
+        dailyOrders[day] = 0;
+        dailyTotalPrices[day] = 0;
+      }
+      dailyOrders[day]++;
+      dailyTotalPrices[day] += totalPrice;
 
-    if (!hourlyOrders[hour]) {
-      hourlyOrders[hour] = 0;
-      hourlyTotalPrices[hour] = 0;
-    }
-    hourlyOrders[hour]++;
-    hourlyTotalPrices[hour] += totalPrice;
-  });
+      if (!hourlyOrders[hour]) {
+        hourlyOrders[hour] = 0;
+        hourlyTotalPrices[hour] = 0;
+      }
+      hourlyOrders[hour]++;
+      hourlyTotalPrices[hour] += totalPrice;
+
+      if (!yearlyOrders[year]) {
+        yearlyOrders[year] = 0;
+        yearlyTotalPrices[year] = 0;
+      }
+      yearlyOrders[year]++;
+      yearlyTotalPrices[year] += totalPrice;
+    });
 
   return {
     months: monthOrders,
     weekdays: weekdayOrders,
     daily: dailyOrders,
     hourly: hourlyOrders,
+    yearlyOrders: yearlyOrders,
     monthTotalPrices: monthTotalPrices,
     weekdayTotalPrices: weekdayTotalPrices,
     dailyTotalPrices: dailyTotalPrices,
     hourlyTotalPrices: hourlyTotalPrices,
+    yearlyTotalPrices: yearlyTotalPrices,
   };
 };
 
@@ -92,22 +105,6 @@ export const getItemStats = (orders, itemType) => {
       hourly: {},
     };
   }
-
-  const monthNames = [
-    "Jan",
-    "Feb",
-    "Mar",
-    "Apr",
-    "May",
-    "Jun",
-    "Jul",
-    "Aug",
-    "Sep",
-    "Oct",
-    "Nov",
-    "Dec",
-  ];
-  const weekdayNames = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
   let monthOrders = {};
   let weekdayOrders = {};
@@ -169,22 +166,6 @@ export const getStateStats = (orders, stateType) => {
       hourly: {},
     };
   }
-
-  const monthNames = [
-    "Jan",
-    "Feb",
-    "Mar",
-    "Apr",
-    "May",
-    "Jun",
-    "Jul",
-    "Aug",
-    "Sep",
-    "Oct",
-    "Nov",
-    "Dec",
-  ];
-  const weekdayNames = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
   let monthOrders = {};
   let weekdayOrders = {};

@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { TABLE } from "../constants/constants";
+import { weekdayNames } from "../components/charts/chartData";
 
 export const ordersSlice = createSlice({
   name: "orders",
@@ -7,8 +8,6 @@ export const ordersSlice = createSlice({
     dateRange: { startDate: null, endDate: null },
     activeTab: TABLE,
     tableData: {},
-    errorMsg: "",
-    queryStatus: ""
   },
   reducers: {
     updateDateRange: (state, action) => {

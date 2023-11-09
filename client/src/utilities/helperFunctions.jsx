@@ -1,4 +1,5 @@
 import { ASC } from "../constants/constants";
+import { newTableData } from "../app/ordersReducer";
 
 export const formatDate = (dateString) => {
   let date = new Date(dateString);
@@ -59,11 +60,13 @@ export const filterData = async (
   filterableData,
   setFilteredData,
   updateParam,
-  values
+  values, 
+  dispatch
 ) => {
   if (updateParam === "last_update_time") {
     try {
       if (!values.startDate && !values.endDate) {
+        dispatch(newTableData(filterableData));
         return setFilteredData(filterableData);
       }
       const newData = await filterableData.filter((each) => {
@@ -75,6 +78,7 @@ export const filterData = async (
         );
       });
       setFilteredData(newData);
+      dispatch(newTableData(newData));
     } catch (error) {
       console.error(error);
     }
@@ -118,3 +122,24 @@ export const getDates = () => {
     last2Years: last2Years,
   };
 };
+
+export const getDailySortedData = (data) => {
+  let keys = Object.keys(data);
+  let values = Object.values(data);
+ 
+  if (!keys.every(key => key.match(/\d{1,2}\/\d{1,2}\/\d{4}/))) {
+    return 'Error: Keys are not in the format of dates (MM/DD/YYYY).';
+  }
+ 
+  keys.sort((a, b) => new Date(b) - new Date(a));
+ 
+  keys = keys.map(key => {
+    let date = new Date(key);
+    let day = date.getDate();
+    let month = date.toLocaleString('default', { month: 'short' });
+    return `${day}${['th', 'st', 'nd', 'rd'][(day % 100 >> 3 ^ 1) && day % 10] || 'th'} ${month}`;
+  });
+ 
+  return { keys, values };
+ };
+ 

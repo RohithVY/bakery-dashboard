@@ -6,6 +6,9 @@ module.exports = {
     "./node_modules/react-tailwindcss-datepicker/dist/index.esm.js",
   ],
   theme: {
+    transitionDuration: {
+      DEFAULT: '0ms'
+    },
     extend: {
       colors: {
         secondary: {},

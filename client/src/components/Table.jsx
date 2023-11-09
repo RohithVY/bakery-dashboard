@@ -17,7 +17,6 @@ const tableHeaderCName =
   "text-center font-bold text-[0.8rem] uppercase subpixel-antialiased text-slate-300 cursor-pointer";
 
 const Table = () => {
-  const dispatch = useDispatch();
   const [currentPage, setCurrentPage] = useState(1);
   const tableRowsPerPage = 10;
   const [paginatedData, setPaginatedData] = useState([]);
@@ -37,6 +36,8 @@ const Table = () => {
     customer: ASC,
   });
 
+  const dispatch = useDispatch();
+
   const startDate = new Date(dateRange.startDate);
   const endDate = new Date(dateRange.endDate);
 
@@ -51,6 +52,7 @@ const Table = () => {
   useEffect(() => {
     if (data && data.orders) {
       setFilteredData(data.orders);
+      dispatch(newTableData(data.orders));
     }
   }, [data]);
 
@@ -64,7 +66,13 @@ const Table = () => {
 
   useEffect(() => {
     data?.orders &&
-      filterData(data?.orders, setFilteredData, "last_update_time", dateRange);
+      filterData(
+        data?.orders,
+        setFilteredData,
+        "last_update_time",
+        dateRange,
+        dispatch
+      );
   }, [dateRange]);
 
   if (status === "pending") {
@@ -80,8 +88,6 @@ const Table = () => {
   const handlePageChange = (pageIndex) => {
     setCurrentPage(pageIndex);
   };
-
-  if (data && data.orders) dispatch(newTableData(data));
 
   const handleDirectionChange = (key) => {
     setDataDirection((prevState) => {
