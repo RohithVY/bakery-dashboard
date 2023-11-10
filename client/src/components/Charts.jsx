@@ -15,8 +15,8 @@ import ChartsHeader from "./ChartsHeader";
 
 const Charts = () => {
   const allData = useSelector(selectTableData);
-  const [item, setItem] = useState("Muffins");
-  const [progess, setProgress] = useState("Delivered");
+  const [item, setItem] = useState("Cookies");
+  const [progess, setProgress] = useState("Processing");
   const ordersProgressData = getStateStats(allData, progess);
   const orderItemStats = getItemStats(allData, item);
   const topContributorsData = getTopBranches(allData, 5);
