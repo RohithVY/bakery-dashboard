@@ -157,6 +157,7 @@ const BarChart = ({
           }`}
         />}
       </div>
+      {console.log(keysYaxis)}
       <div className="px-5 mb-2 h-[15rem]">
         <ColumnChart
           chartData={barChartDataTotalSpent}

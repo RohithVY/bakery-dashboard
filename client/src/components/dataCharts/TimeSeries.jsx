@@ -11,7 +11,7 @@ const TimeSeries = ({ chartFor }) => {
   const allData = useSelector(selectTableData);
   const orderStats = getOrderStats(allData);
   const [range, setRange] = useState(7);
-  const [orderBy, setOrderBy] = useState("weekdays");
+  const [orderBy, setOrderBy] = useState("daily");
   const [keysYaxis, setKeysYaxis] = useState(weekdayNames);
   const [valuesYaxis, setValuesYaxis] = useState();
 
