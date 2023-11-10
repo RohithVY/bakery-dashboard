@@ -94,16 +94,36 @@ const TimeSeries = ({ chartFor }) => {
             tabIndex={0}
             className={`dropdown-content z-[1] menu p-2 shadow bg-[#2b4063] rounded-box w-52`}
           >
-            <li onClick={() => handleOrderBy("hourly")}>
+            <li
+              onClick={() => handleOrderBy("hourly")}
+              className={`${
+                orderBy === "hourly" ? "bg-[#618ad1] rounded-md" : ""
+              }`}
+            >
               <a>Hourly</a>
             </li>
-            <li onClick={() => handleOrderBy("daily")}>
+            <li
+              onClick={() => handleOrderBy("daily")}
+              className={`${
+                orderBy === "daily" ? "bg-[#618ad1] rounded-md" : ""
+              }`}
+            >
               <a>Daily</a>
             </li>
-            <li onClick={() => handleOrderBy("weekdays")}>
+            <li
+              onClick={() => handleOrderBy("weekdays")}
+              className={`${
+                orderBy === "weekdays" ? "bg-[#618ad1] rounded-md" : ""
+              }`}
+            >
               <a>Weekly</a>
             </li>{" "}
-            <li onClick={() => handleOrderBy("months")}>
+            <li
+              onClick={() => handleOrderBy("months")}
+              className={`${
+                orderBy === "months" ? "bg-[#618ad1] rounded-md" : ""
+              }`}
+            >
               <a>Monthly</a>
             </li>
             {/* <li onClick={() => handleOrderBy("yearly")}>

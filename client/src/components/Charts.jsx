@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, lazy } from "react";
 import TimeSeries from "./dataCharts/TimeSeries";
 import { ITEMTYPE, ORDERS, ORDERSTATE, PRICES } from "../constants/constants";
 import BarChart from "./dataCharts/BarChart";

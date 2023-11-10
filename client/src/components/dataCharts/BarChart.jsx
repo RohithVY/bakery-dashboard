@@ -105,16 +105,36 @@ const BarChart = ({
             tabIndex={0}
             className={`dropdown-content z-[1] menu p-2 shadow bg-[#2b4063] rounded-box w-52`}
           >
-            <li onClick={() => handleOrderBy("hourly", ORDERSTATE)}>
+            <li
+              onClick={() => handleOrderBy("hourly", ORDERSTATE)}
+              className={`${
+                orderBy === "hourly" ? "bg-[#618ad1] rounded-md" : ""
+              }`}
+            >
               <a>Hourly</a>
             </li>
-            <li onClick={() => handleOrderBy("daily", ORDERSTATE)}>
+            <li
+              onClick={() => handleOrderBy("daily", ORDERSTATE)}
+              className={`${
+                orderBy === "daily" ? "bg-[#618ad1] rounded-md" : ""
+              }`}
+            >
               <a>Daily</a>
             </li>
-            <li onClick={() => handleOrderBy("weekdays", ORDERSTATE)}>
+            <li
+              onClick={() => handleOrderBy("weekdays", ORDERSTATE)}
+              className={`${
+                orderBy === "weekdays" ? "bg-[#618ad1] rounded-md" : ""
+              }`}
+            >
               <a>Weekly</a>
             </li>{" "}
-            <li onClick={() => handleOrderBy("months", ORDERSTATE)}>
+            <li
+              onClick={() => handleOrderBy("months", ORDERSTATE)}
+              className={`${
+                orderBy === "months" ? "bg-[#618ad1] rounded-md" : ""
+              }`}
+            >
               <a>Monthly</a>
             </li>
             {/* <li onClick={() => handleOrderBy("yearly", ORDERSTATE)}>
@@ -134,30 +154,37 @@ const BarChart = ({
             className={`dropdown-content z-[1] menu p-2 shadow bg-[#2b4063] rounded-box w-52`}
           >
             {(chartFor === ITEMTYPE ? possibleItems : possibleProgresses).map(
-              (item) => {
+              (each) => {
                 const id = useId();
                 return (
-                  <li onClick={() => handleOrderBy(item, ITEMTYPE)} key={id}>
-                    <a>{item}</a>
+                  <li
+                    onClick={() => handleOrderBy(each, ITEMTYPE)}
+                    key={id}
+                    className={`${
+                      (item === each || each === progess) ? "bg-[#618ad1] rounded-md" : ""
+                    }`}
+                  >
+                    <a>{each}</a>
                   </li>
                 );
               }
             )}
           </ul>
         </div>
-        {orderBy && <input
-          type="range"
-          min={0}
-          max={Object.keys(orderStats["daily"]).length}
-          disabled={orderBy !== "daily"}
-          value={range}
-          onChange={(e) => handleRangeChange(e)}
-          className={`range mx-4 range-sm ${
-            orderBy === "daily" ? "range-secondary" : ""
-          }`}
-        />}
+        {orderBy && (
+          <input
+            type="range"
+            min={0}
+            max={Object.keys(orderStats["daily"]).length}
+            disabled={orderBy !== "daily"}
+            value={range}
+            onChange={(e) => handleRangeChange(e)}
+            className={`range mx-4 range-sm ${
+              orderBy === "daily" ? "range-secondary" : ""
+            }`}
+          />
+        )}
       </div>
-      {console.log(keysYaxis)}
       <div className="px-5 mb-2 h-[15rem]">
         <ColumnChart
           chartData={barChartDataTotalSpent}
